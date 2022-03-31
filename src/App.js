@@ -4,14 +4,19 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import HomePage from "./pages/HomePage/HomePage";
 import Layout from "./templates/Layout";
 import SignUpPage from "./pages/SignUpPage/SignUpPage";
+import SignInPage from "./pages/SignInPage/SignInPage";
+import UserDetailPage from "./pages/UserDetailPage/UserDetailPage";
 
 function App() {
   return (
     <div>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Layout Component={HomePage} />} />
+          <Route path="/" element={<HomePage />} />
+          <Route path="/user" element={<Layout Component={UserDetailPage} />} />
+
           <Route path="/sign-up" element={<SignUpPage />} />
+          <Route path="/sign-in" element={<SignInPage />} />
         </Routes>
       </BrowserRouter>
     </div>

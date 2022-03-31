@@ -1,12 +1,14 @@
 import React from "react";
 import "antd/dist/antd.css";
-import { Form, Input, Button, DatePicker, Select } from "antd";
+import { Form, Input } from "antd";
 import { userService } from "../../../services/userService";
+import "./FormSignUp.scss";
+import { useNavigate } from "react-router-dom";
 export default function FormSignUp() {
-  const { Option } = Select;
-
+  let navigate = useNavigate();
   const onFinish = (values) => {
     handleSignUp(values);
+    navigate("/sign-in");
     // console.log(values);
   };
 
@@ -125,8 +127,14 @@ export default function FormSignUp() {
           span: 16,
         }}
       >
-        <div className="flex justify-between">
-          <button>Submit</button>
+        <div className="flex flex-col space-y-3">
+          <span>
+            Already had an account?{" "}
+            <a href="/sign-in" className="font-medium">
+              Sign In
+            </a>
+          </span>
+          <button className="rounded-lg font-medium">Sign Up</button>
         </div>
       </Form.Item>
     </Form>

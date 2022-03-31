@@ -1,7 +1,47 @@
 .navBar {
   height: 80px;
+
   img {
     width: 89px;
     height: 27px;
+  }
+  ul {
+    margin-bottom: 0;
+    a {
+      text-decoration: none;
+      color: black;
+    }
+  }
+  .user {
+    height: 35px;
+    width: 35px;
+    background-color: gray;
+    border-radius: 50%;
+  }
+  button {
+    background-color: #1dbf73;
+    border: #1dbf73;
+    &:hover {
+      background-color: #1dbf73;
+    }
+  }
+  .buttons {
+    button {
+      height: 30px;
+      width: 60px;
+      background-color: transparent;
+      color: white;
+      border: solid 2px white;
+      &:hover {
+        transition: 0.3s;
+        background-color: #1dbf73;
+      }
+    }
+    button.sign-in-btn {
+      border: transparent;
+      &:hover {
+        background-color: transparent;
+      }
+    }
   }
 }

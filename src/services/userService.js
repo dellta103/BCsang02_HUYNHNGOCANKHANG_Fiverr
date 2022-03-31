@@ -12,4 +12,14 @@ export const userService = {
       },
     });
   },
+  signIn: (values) => {
+    return axios({
+      url: `${BASEURL}/api/auth/signin`,
+      method: "POST",
+      data: values,
+      headers: {
+        tokenByClass: TOKEN,
+      },
+    });
+  },
 };
