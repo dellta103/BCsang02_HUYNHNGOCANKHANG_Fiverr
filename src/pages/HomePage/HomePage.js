@@ -3,6 +3,8 @@ import "./HomePage.scss";
 import { useSelector } from "react-redux";
 import HeaderHome from "./HeaderHome/HeaderHome";
 import CarouselHome from "./CarouselHome/CarouselHome";
+import Carousel2Home from "./Carousel2Home/Carousel2Home";
+import ContentHome from "./ContentHome/ContentHome";
 export default function HomePage() {
   let { userInfo } = useSelector((state) => state.userSlice);
   useEffect(() => {
@@ -41,6 +43,8 @@ export default function HomePage() {
           </ul>
         </div>
       </div>
+      <Carousel2Home />
+      <ContentHome />
     </div>
   );
 }
