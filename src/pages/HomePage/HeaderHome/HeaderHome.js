@@ -4,13 +4,18 @@ import "./HeaderHome.scss";
 import "antd/dist/antd.css";
 import { useNavigate } from "react-router-dom";
 
-export default function Header() {
+export default function Header({ scroll }) {
   let navigate = useNavigate();
   return (
-    <div className="fixed z-50 top-0 left-0 w-full bg-transparent  ">
+    <div
+      className={
+        "fixed z-50 top-0 left-0 w-full " +
+        (scroll > 90 ? "changed" : "default")
+      }
+    >
       <div className="w-9/12  navBar m-auto  flex items-center justify-between">
         <div className="flex space-x-10">
-          <span className="text-4xl text-white font-bold">
+          <span className="text-4xl  font-bold logo">
             fiverr
             <span
               style={{
@@ -23,7 +28,7 @@ export default function Header() {
         </div>
         <ul className="flex items-center h-full space-x-5">
           <li className="font-medium ">
-            <a href="#" className="text-white seller">
+            <a href="#" className=" seller">
               Become a Seller
             </a>
           </li>
@@ -38,7 +43,7 @@ export default function Header() {
                 Sign In
               </button>
               <button
-                className="rounded-lg font-medium"
+                className="rounded-lg font-medium button2"
                 onClick={() => {
                   navigate("/sign-up");
                 }}

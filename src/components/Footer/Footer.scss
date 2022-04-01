@@ -1,0 +1,11 @@
+.defaultFooter {
+  li {
+    a {
+      color: rgb(142, 135, 135);
+      font-weight: 500;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}

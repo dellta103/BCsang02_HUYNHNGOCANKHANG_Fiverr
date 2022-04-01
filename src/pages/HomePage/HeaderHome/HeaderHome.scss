@@ -8,3 +8,24 @@
     display: none;
   }
 }
+.default {
+  background-color: transparent;
+  transition: 0.5s;
+  .logo,
+  a,
+  button {
+    color: white !important;
+  }
+}
+.changed {
+  background-color: white;
+  transition: 0.5s;
+  .logo,
+  a,
+  button {
+    color: black !important;
+  }
+  button.button2 {
+    border: solid 2px black !important;
+  }
+}

@@ -1,18 +1,34 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./HomePage.scss";
 import { useSelector } from "react-redux";
 import HeaderHome from "./HeaderHome/HeaderHome";
 import CarouselHome from "./CarouselHome/CarouselHome";
 import Carousel2Home from "./Carousel2Home/Carousel2Home";
 import ContentHome from "./ContentHome/ContentHome";
+import Footer from "../../components/Footer/Footer";
 export default function HomePage() {
   let { userInfo } = useSelector((state) => state.userSlice);
+  const [y, setY] = useState(window.scrollY);
   useEffect(() => {
     console.log(userInfo);
-  });
+  }, []);
+  useEffect(() => {
+    window.addEventListener("scroll", (e) => handleNavigation(e));
+
+    return () => {
+      // return a cleanup function to unregister our function since its gonna run multiple times
+      window.removeEventListener("scroll", (e) => handleNavigation(e));
+    };
+  }, [y]);
+
+  const handleNavigation = (e) => {
+    const window = e.currentTarget;
+    setY(window.scrollY);
+  };
+
   return (
     <div>
-      <HeaderHome />
+      <HeaderHome scroll={y} />
       <CarouselHome />
       <div className="brands flex items-center  text-center">
         <div className="content flex justify-around  w-3/4 m-auto">
@@ -45,6 +61,7 @@ export default function HomePage() {
       </div>
       <Carousel2Home />
       <ContentHome />
+      <Footer />
     </div>
   );
 }
