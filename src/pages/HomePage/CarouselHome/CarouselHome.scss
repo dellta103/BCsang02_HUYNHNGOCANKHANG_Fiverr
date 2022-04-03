@@ -88,6 +88,31 @@
     }
   }
 }
+.swiper-container {
+  .swiper-button-prev,
+  .swiper-button-next {
+    background-color: white;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+  }
+  .swiper-button-prev {
+    left: 0;
+    &::after {
+      font-size: 25px;
+      font-weight: 700;
+      color: black;
+    }
+  }
+  .swiper-button-next {
+    right: 0;
+    &::after {
+      font-size: 25px;
+      font-weight: 700;
+      color: black;
+    }
+  }
+}
 .responsiveContent {
   position: relative;
   height: calc(100vh * 2 / 3);

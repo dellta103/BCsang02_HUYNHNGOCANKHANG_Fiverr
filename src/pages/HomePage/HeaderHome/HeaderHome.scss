@@ -15,6 +15,7 @@
   a,
   button {
     color: white !important;
+    transition: 0.5s;
   }
 }
 .changed {
@@ -24,8 +25,10 @@
   a,
   button {
     color: black !important;
+    transition: 0.5s;
   }
   button.button2 {
     border: solid 2px black !important;
+    transition: 0.5s;
   }
 }

@@ -15,16 +15,18 @@ export default function Header({ scroll }) {
     >
       <div className="w-9/12  navBar m-auto  flex items-center justify-between">
         <div className="flex space-x-10">
-          <span className="text-4xl  font-bold logo">
-            fiverr
-            <span
-              style={{
-                color: "#1dbf73",
-              }}
-            >
-              .
-            </span>{" "}
-          </span>
+          <a href="#">
+            <span className="text-4xl  font-bold logo">
+              fiverr
+              <span
+                style={{
+                  color: "#1dbf73",
+                }}
+              >
+                .
+              </span>{" "}
+            </span>
+          </a>
         </div>
         <ul className="flex items-center h-full space-x-5">
           <li className="font-medium ">
