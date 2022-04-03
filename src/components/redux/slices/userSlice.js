@@ -10,11 +10,14 @@ const userSlice = createSlice({
     setSignIn: (state, action) => {
       state.userInfo = action.payload;
     },
+    setAvatar: (state, action) => {
+      state.userInfo.avatar = action.payload.name;
+    },
   },
 });
 
 const { actions, reducer } = userSlice;
 
-export const { setSignIn } = actions;
+export const { setSignIn, setAvatar } = actions;
 
 export default reducer;

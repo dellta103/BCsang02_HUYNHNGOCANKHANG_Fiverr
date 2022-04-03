@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./JobBar.scss";
 import { jobService } from "../../services/jobService";
-import { Menu, Dropdown } from "antd";
+import { Popover, Button } from "antd";
 import "antd/dist/antd.css";
 export default function JobBar() {
   const [jobList, setJobList] = useState([]);
@@ -20,38 +20,34 @@ export default function JobBar() {
         console.log(err);
       });
   };
-  //   const renderJobList = (values) => {
-  //     for (let i = 0; i < 9; i++) {
-  //       //   const menu = (
-  //       //     <Menu>
-  //       //       <Menu.Item>
-  //       //         <a
-  //       //           target="_blank"
-  //       //           rel="noopener noreferrer"
-  //       //           href="https://www.antgroup.com"
-  //       //         >
-  //       //           {values[i].subTypeJobs.map((item) => {
-  //       //             return item.name;
-  //       //           })}
-  //       //         </a>
-  //       //       </Menu.Item>
-  //       //     </Menu>
-  //       //   );
-  //       return (
-  //         <Dropdown>
-  //           <a
-  //             className="ant-dropdown-link w-full text-sm"
-  //             onClick={(e) => e.preventDefault()}
-  //           >
-  //             {values[i].name}
-  //           </a>
-  //         </Dropdown>
-  //       );
-  //     }
-  //   };
+  const renderJobList = (arr) => {
+    return arr.map((jobs, index) => {
+      const content = (
+        <div className="flex flex-col">
+          {jobs?.subTypeJobs.map((item) => {
+            return <p>{item?.name}</p>;
+          })}
+        </div>
+      );
+      if (index < 9) {
+        return (
+          <li className="flex-grow">
+            <Popover content={content} title={jobs?.name} trigger="hover">
+              <a href="#" className="text-gray-500 font-semibold text-md">
+                {jobs?.name}
+              </a>
+            </Popover>
+          </li>
+        );
+      }
+    });
+  };
+
   return (
-    <div className="jobBar flex items-center space-x-5">
-      {/* {renderJobList(jobList)} */}
+    <div className={"jobBar  "}>
+      <ul className="space-x-2  flex items-center h-full justify-between text-center">
+        {renderJobList(jobList)}
+      </ul>
     </div>
   );
 }

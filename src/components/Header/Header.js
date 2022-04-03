@@ -30,7 +30,12 @@ export default function Header() {
           <li>
             {userInfo?._id ? (
               <div>
-                <div className="user"></div>
+                <div
+                  className="user"
+                  onClick={() => {
+                    navigate("/user");
+                  }}
+                ></div>
               </div>
             ) : (
               <div className="space-x-3 buttons">

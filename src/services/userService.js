@@ -22,4 +22,14 @@ export const userService = {
       },
     });
   },
+  uploadAvatar: (values) => {
+    return axios({
+      url: `${BASEURL}/api/users/upload-avatar`,
+      method: "POST",
+      data: values,
+      headers: {
+        tokenByClass: TOKEN,
+      },
+    });
+  },
 };

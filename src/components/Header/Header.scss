@@ -17,6 +17,9 @@
     width: 35px;
     background-color: gray;
     border-radius: 50%;
+    &:hover {
+      cursor: pointer;
+    }
   }
   button {
     background-color: #1dbf73;
@@ -30,18 +33,19 @@
       height: 30px;
       width: 60px;
       background-color: transparent;
-      color: white;
-      border: solid 2px white;
+      color: black;
+      border: solid 2px black;
       &:hover {
+        border: solid 2px transparent;
+        color: white;
         transition: 0.3s;
         background-color: #1dbf73;
       }
     }
     button.sign-in-btn {
+      color: black;
       border: transparent;
-      &:hover {
-        background-color: transparent;
-      }
+      background-color: transparent;
     }
   }
 }

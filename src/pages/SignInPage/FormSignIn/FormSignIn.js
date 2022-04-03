@@ -12,7 +12,7 @@ export default function FormSignIn() {
   let dispatch = useDispatch();
   const onFinish = (values) => {
     handleSignIn(values);
-    navigate("/");
+    navigate("/jobs");
   };
 
   const onFinishFailed = (errorInfo) => {
