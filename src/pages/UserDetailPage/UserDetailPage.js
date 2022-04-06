@@ -4,9 +4,23 @@ import { setAvatar } from "../../components/redux/slices/userSlice";
 import { userService } from "../../services/userService";
 import { jobService } from "../../services/jobService";
 import "./UserDetailPage.scss";
+import { useNavigate } from "react-router-dom";
 export default function UserDetailPage() {
+  useEffect(() => {
+    jobService
+      .getBookedJobs()
+      .then((res) => {
+        setBookedJob(res.data.bookingJob);
+        console.log(res.data.bookingJob);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
   let { userInfo } = useSelector((state) => state.userSlice);
   let dispatch = useDispatch();
+  let navigate = useNavigate();
+  const [bookedJob, setBookedJob] = useState([]);
   const [img, setImg] = useState(null);
   const [show, setShow] = useState(false);
   const [skill, setSkill] = useState([]);
@@ -40,8 +54,8 @@ export default function UserDetailPage() {
       .catch((err) => console.log(err));
   };
   return (
-    <div className="bg-gray-300">
-      <div className="w-9/12 m-auto ">
+    <div className="bg-gray-300 p-3">
+      <div className="lg:w-9/12 m-auto flex md:w-11/12">
         <div className="left">
           <div className="top rounded-lg shadow-lg py-4">
             <div className="user">
@@ -86,14 +100,14 @@ export default function UserDetailPage() {
               <div className="desc flex justify-between ">
                 <span className="font-medium">Description</span>
                 <a href="#" className="font-medium">
-                  Edit Description
+                  Edit
                 </a>
               </div>
               <hr className="my-4" />
               <div className="languages flex justify-between">
                 <span className="font-medium">Languages</span>
                 <a href="#" className="font-medium">
-                  Add New
+                  Add
                 </a>
               </div>
               <hr className="my-4" />
@@ -176,20 +190,56 @@ export default function UserDetailPage() {
               <div className="languages flex justify-between">
                 <span className="font-medium">Education</span>
                 <a href="#" className="font-medium">
-                  Add New
+                  Add
                 </a>
               </div>
               <hr className="my-4" />
               <div className="languages flex justify-between">
                 <span className="font-medium">Certifications</span>
                 <a href="#" className="font-medium">
-                  Add New
+                  Add
                 </a>
               </div>
             </div>
           </div>
         </div>
-        <div className="right"></div>
+        <div className="right ml-60">
+          <p className="text-2xl font-bold">Your jobs:</p>
+          {bookedJob?.map((item) => {
+            return (
+              <div className="flex bg-white rounded-lg overflow-hidden mb-3">
+                <div className="job-left">
+                  <img
+                    src={item?.image}
+                    alt=""
+                    style={{
+                      width: "200px",
+                    }}
+                  />
+                </div>
+                <div
+                  className="job-right p-2"
+                  onClick={() => {
+                    navigate(`/jobs/${item?._id}`);
+                  }}
+                >
+                  <p className="font-bold">{`${item.name.substring(
+                    0,
+                    20
+                  )}...`}</p>
+                  <button
+                    className="w-24 rounded-sm font-bold mt-3"
+                    onClick={() => {
+                      navigate(`/jobs/${item?._id}`);
+                    }}
+                  >
+                    View Details
+                  </button>
+                </div>
+              </div>
+            );
+          })}
+        </div>
       </div>
     </div>
   );

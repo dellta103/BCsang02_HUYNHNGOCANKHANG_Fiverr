@@ -107,6 +107,7 @@ export default function JobDetailPage() {
                     className="w-full rounded-lg font-semibold"
                     onClick={() => {
                       handleBookJob(detailJob?._id);
+                      window.location.href = "/user";
                     }}
                   >
                     Continue (${detailJob?.price})

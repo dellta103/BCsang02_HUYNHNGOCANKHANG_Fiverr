@@ -71,4 +71,14 @@ export const jobService = {
       },
     });
   },
+  getBookedJobs: () => {
+    return axios({
+      url: `${BASEURL}/api/jobs/by-user`,
+      method: "GET",
+      headers: {
+        tokenByClass: TOKEN,
+        token: TOKEN_USER,
+      },
+    });
+  },
 };
