@@ -7,6 +7,7 @@ import SignUpPage from "./pages/SignUpPage/SignUpPage";
 import SignInPage from "./pages/SignInPage/SignInPage";
 import UserDetailPage from "./pages/UserDetailPage/UserDetailPage";
 import JobsPage from "./pages/JobsPage/JobsPage";
+import JobDetailPage from "./pages/JobDetailPage/JobDetailPage";
 
 function App() {
   return (
@@ -16,6 +17,10 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/user" element={<Layout Component={UserDetailPage} />} />
           <Route path="/jobs" element={<Layout Component={JobsPage} />} />
+          <Route
+            path="/jobs/:id"
+            element={<Layout Component={JobDetailPage} />}
+          />
 
           <Route path="/sign-up" element={<SignUpPage />} />
           <Route path="/sign-in" element={<SignInPage />} />

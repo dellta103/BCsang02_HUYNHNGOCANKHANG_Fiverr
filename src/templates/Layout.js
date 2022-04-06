@@ -1,6 +1,7 @@
 import React from "react";
 import Header from "../components/Header/Header";
 import JobBar from "../components/JobBar/JobBar";
+import Footer from "../components/Footer/Footer";
 import "./Layout.scss";
 export default function Layout({ Component }) {
   return (
@@ -23,6 +24,7 @@ export default function Layout({ Component }) {
           </div>
         </div>
         <Component />
+        <Footer />
       </div>
     </div>
   );

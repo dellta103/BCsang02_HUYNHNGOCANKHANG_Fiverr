@@ -1,0 +1,15 @@
+.detail-top {
+  .detail-top-left {
+    width: 60%;
+    img {
+      width: 80%;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+  }
+  .detail-top-right {
+    .plans {
+      width: 400px;
+    }
+  }
+}

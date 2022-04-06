@@ -44,7 +44,7 @@ export default function JobBar() {
   };
 
   return (
-    <div className={"jobBar  "}>
+    <div className={"jobBar "}>
       <ul className="space-x-2  flex items-center h-full justify-between text-center">
         {renderJobList(jobList)}
       </ul>

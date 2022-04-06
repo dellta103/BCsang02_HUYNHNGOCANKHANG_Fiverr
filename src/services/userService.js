@@ -1,6 +1,5 @@
 import axios from "axios";
-import { BASEURL, TOKEN } from "../utils/config";
-
+import { BASEURL, TOKEN, TOKEN_USER } from "../utils/config";
 export const userService = {
   signUp: (values) => {
     return axios({
@@ -9,6 +8,7 @@ export const userService = {
       data: values,
       headers: {
         tokenByClass: TOKEN,
+        token: TOKEN_USER,
       },
     });
   },
@@ -19,6 +19,7 @@ export const userService = {
       data: values,
       headers: {
         tokenByClass: TOKEN,
+        token: TOKEN_USER,
       },
     });
   },
@@ -27,8 +28,21 @@ export const userService = {
       url: `${BASEURL}/api/users/upload-avatar`,
       method: "POST",
       data: values,
+
       headers: {
         tokenByClass: TOKEN,
+        token: TOKEN_USER,
+      },
+    });
+  },
+  editInfo: (values, id) => {
+    return axios({
+      url: `${BASEURL}/api/users/${id}`,
+      method: "PUT",
+      data: values,
+      headers: {
+        tokenByClass: TOKEN,
+        token: TOKEN_USER,
       },
     });
   },

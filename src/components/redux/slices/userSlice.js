@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { localService } from "../../../services/localService";
 let initialState = {
   userInfo: localService.getUserInfo() || null,
+  avatar: "",
 };
 const userSlice = createSlice({
   name: "userSlice",
@@ -11,7 +12,7 @@ const userSlice = createSlice({
       state.userInfo = action.payload;
     },
     setAvatar: (state, action) => {
-      state.userInfo.avatar = action.payload.name;
+      state.avatar = URL.createObjectURL(action.payload);
     },
   },
 });

@@ -1,22 +1,40 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./Header.scss";
 import logo from "../../logos/fiverr-logo.svg";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Input, Space } from "antd";
+import { filterJobs, setSearch } from "../redux/slices/jobSlice";
 import "antd/dist/antd.css";
+import { jobService } from "../../services/jobService";
 
 export default function Header() {
+  const [jobs, setJobs] = useState([]);
+
   let navigate = useNavigate();
+  let dispatch = useDispatch();
   let { userInfo } = useSelector((state) => state.userSlice);
+  let { searchValue } = useSelector((state) => state.jobSlice);
+  let { filteredJobs } = useSelector((state) => state.jobSlice);
   const { Search } = Input;
 
-  const onSearch = (value) => console.log(value);
+  const onSearch = (value) => {
+    jobService
+      .getJobListByName(value)
+      .then((res) => {
+        console.log(res.data);
+        dispatch(filterJobs(res.data));
+      })
+      .catch((err) => console.log(err));
+    navigate("/jobs");
+  };
   return (
-    <div className="fixed top-0 left-0 w-full bg-white border-b border-gray-400 ">
+    <div className="fixed top-0 z-50 left-0 w-full bg-white border-b border-gray-400 ">
       <div className="w-9/12  navBar m-auto  flex items-center justify-between">
         <div className="flex space-x-10">
-          <img src={logo} alt="" />
+          <a href="/">
+            <img src={logo} alt="" />
+          </a>
           <Search
             placeholder="Find Services"
             onSearch={onSearch}

@@ -5,15 +5,29 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Autoplay, EffectFade } from "swiper";
 import "swiper/swiper.scss";
 import "./CarouselHome.scss";
+import { jobService } from "../../../services/jobService";
+import { useDispatch } from "react-redux";
+import { filterJobs } from "../../../components/redux/slices/jobSlice";
+import { useNavigate } from "react-router-dom";
 export default function CarouselHome() {
   const [input, setInput] = useState("");
   const { Search } = Input;
   SwiperCore.use([Autoplay, EffectFade]);
   const onSearch = (value) => console.log(value);
+  let dispatch = useDispatch();
+  let navigate = useNavigate();
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(input);
     setInput("");
+    jobService
+      .getJobListByName(input)
+      .then((res) => {
+        console.log(res.data);
+        dispatch(filterJobs(res.data));
+      })
+      .catch((err) => console.log(err));
+    navigate("/jobs");
   };
   return (
     <div>
