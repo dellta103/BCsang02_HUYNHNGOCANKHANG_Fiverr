@@ -39,6 +39,7 @@ export default function Header() {
             placeholder="Find Services"
             onSearch={onSearch}
             enterButton="Search"
+            className="search-bar"
           />
         </div>
         <ul className="flex items-center h-full space-x-5">

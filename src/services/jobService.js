@@ -60,4 +60,15 @@ export const jobService = {
       },
     });
   },
+  newComment: (values) => {
+    return axios({
+      url: `${BASEURL}/api/comments`,
+      method: "POST",
+      data: values,
+      headers: {
+        tokenByClass: TOKEN,
+        token: TOKEN_USER,
+      },
+    });
+  },
 };

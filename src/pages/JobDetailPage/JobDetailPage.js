@@ -1,30 +1,39 @@
 import React, { useEffect, useState } from "react";
 import { jobService } from "../../services/jobService";
 import "./JobDetailPage.scss";
-
+import { Navigate, useNavigate, useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 export default function JobDetailPage() {
+  let { id } = useParams();
+  let { userInfo } = useSelector((state) => state.userSlice);
+  let navigate = useNavigate();
   const [detailJob, setDetailJob] = useState();
   const [comments, setComments] = useState();
+  const [newComment, setNewComment] = useState({});
   useEffect(() => {
+    console.log(id);
     jobService
       .getJobDetail(window.location.pathname)
       .then((res) => setDetailJob(res.data))
       .catch((err) => console.log(err));
   }, []);
   useEffect(() => {
-    console.log(window.location.pathname.slice(6));
     jobService
-      .getComments(window.location.pathname.slice(6))
+      .getComments(id)
       .then((res) => {
-        console.log(res.data);
         setComments(res.data);
-        console.log(comments);
       })
       .catch((err) => console.log(err));
   }, [detailJob]);
   const handleBookJob = (uri) => {
     jobService
       .bookJob(uri)
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
+  };
+  const handleNewComment = (values) => {
+    jobService
+      .newComment(values)
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
   };
@@ -172,7 +181,7 @@ export default function JobDetailPage() {
               </div>
             </div>
           </div>
-          <div className="mt-5">
+          <div className="mt-5 comments">
             <p className="text-xl font-bold">Comments</p>
             {comments?.map((item) => {
               return (
@@ -196,6 +205,37 @@ export default function JobDetailPage() {
                 </div>
               );
             })}
+            <div className="new-comment flex flex-col w-1/2 space-y-3">
+              <textarea
+                name="comment"
+                id="comment"
+                cols="30"
+                rows="10"
+                placeholder="Share your thoughts..."
+                className="bg-gray-200 w-full rounded-lg p-3 h-40"
+                value={newComment.content}
+                onChange={(e) => {
+                  setNewComment({
+                    ...newComment,
+                    user: {
+                      name: userInfo?.name,
+                    },
+                    content: e.target.value,
+                    job: id,
+                  });
+                }}
+              ></textarea>
+              <button
+                className="ml-auto rounded-sm bg-blue-600 font-semibold"
+                type="submit"
+                onClick={(e) => {
+                  handleNewComment(newComment);
+                  document.querySelector("#comment").value = "";
+                }}
+              >
+                Comment
+              </button>
+            </div>
           </div>
         </div>
       </div>
