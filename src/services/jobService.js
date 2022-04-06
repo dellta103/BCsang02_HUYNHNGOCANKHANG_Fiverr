@@ -40,6 +40,16 @@ export const jobService = {
       },
     });
   },
+  getJobsByType: (uri) => {
+    return axios({
+      url: `${BASEURL}/api/jobs/by-type?type=${uri}&skip=0&llimit=10`,
+      method: "GET",
+      headers: {
+        tokenByClass: TOKEN,
+        token: TOKEN_USER,
+      },
+    });
+  },
   bookJob: (uri) => {
     return axios({
       url: `${BASEURL}/api/jobs/booking/${uri}`,

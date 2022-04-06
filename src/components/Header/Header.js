@@ -7,6 +7,7 @@ import { Input, Space } from "antd";
 import { filterJobs, setSearch } from "../redux/slices/jobSlice";
 import "antd/dist/antd.css";
 import { jobService } from "../../services/jobService";
+import { localService } from "../../services/localService";
 
 export default function Header() {
   const [jobs, setJobs] = useState([]);
@@ -48,13 +49,33 @@ export default function Header() {
           </li>
           <li>
             {userInfo?._id ? (
-              <div>
+              <div className="flex space-x-3">
                 <div
                   className="user"
                   onClick={() => {
                     navigate("/user");
                   }}
-                ></div>
+                >
+                  <img
+                    src={userInfo?.avatar}
+                    alt=""
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      borderRadius: "50%",
+                      objectFit: "cover",
+                    }}
+                  />
+                </div>
+                <button
+                  className="signOut rounded-lg font-bold"
+                  onClick={() => {
+                    localService.removeUserInfo();
+                    window.location.href = "/";
+                  }}
+                >
+                  Sign Out
+                </button>
               </div>
             ) : (
               <div className="space-x-3 buttons">

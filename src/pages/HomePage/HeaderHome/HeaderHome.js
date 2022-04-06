@@ -3,9 +3,12 @@ import logo from "../../../logos/fiverr-newvector-seeklogo.com-3.svg";
 import "./HeaderHome.scss";
 import "antd/dist/antd.css";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { localService } from "../../../services/localService";
 
 export default function Header({ scroll }) {
   let navigate = useNavigate();
+  let { userInfo } = useSelector((state) => state.userSlice);
   return (
     <div
       className={
@@ -28,32 +31,64 @@ export default function Header({ scroll }) {
             </span>
           </a>
         </div>
+
         <ul className="flex items-center h-full space-x-5">
           <li className="font-medium ">
             <a href="#" className=" seller">
               Become a Seller
             </a>
           </li>
-          <li>
-            <div className="space-x-3 buttons">
-              <button
-                className="sign-in-btn rounded-lg font-medium"
+          {userInfo?._id ? (
+            <li className="flex space-x-3">
+              <div
+                className="user"
                 onClick={() => {
-                  navigate("/sign-in");
+                  navigate("/user");
                 }}
               >
-                Sign In
-              </button>
+                <img
+                  src={userInfo?.avatar}
+                  alt=""
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    borderRadius: "50%",
+                    objectFit: "cover",
+                  }}
+                />
+              </div>
               <button
-                className="rounded-lg font-medium button2"
+                className="signOut rounded-lg font-bold"
                 onClick={() => {
-                  navigate("/sign-up");
+                  localService.removeUserInfo();
+                  window.location.reload();
                 }}
               >
-                Join
+                Sign Out
               </button>
-            </div>
-          </li>
+            </li>
+          ) : (
+            <li>
+              <div className="space-x-3 buttons">
+                <button
+                  className="sign-in-btn rounded-lg font-medium"
+                  onClick={() => {
+                    navigate("/sign-in");
+                  }}
+                >
+                  Sign In
+                </button>
+                <button
+                  className="rounded-lg font-medium button2"
+                  onClick={() => {
+                    navigate("/sign-up");
+                  }}
+                >
+                  Join
+                </button>
+              </div>
+            </li>
+          )}
         </ul>
       </div>
     </div>

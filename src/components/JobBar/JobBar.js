@@ -33,7 +33,10 @@ export default function JobBar() {
         return (
           <li className="flex-grow">
             <Popover content={content} title={jobs?.name} trigger="hover">
-              <a href="#" className="text-gray-500 font-semibold text-md">
+              <a
+                href={`/jobs-by-type/${jobs?._id}`}
+                className="text-gray-500 font-semibold text-md"
+              >
                 {jobs?.name}
               </a>
             </Popover>

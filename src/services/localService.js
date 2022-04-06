@@ -6,4 +6,7 @@ export const localService = {
     const data = localStorage.getItem("userInfo");
     return !data ? null : JSON.parse(data);
   },
+  removeUserInfo: () => {
+    localStorage.setItem("userInfo", null);
+  },
 };

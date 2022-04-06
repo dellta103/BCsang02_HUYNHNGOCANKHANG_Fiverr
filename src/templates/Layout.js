@@ -5,12 +5,7 @@ import Footer from "../components/Footer/Footer";
 import "./Layout.scss";
 export default function Layout({ Component }) {
   return (
-    <div
-      style={{
-        backgroundColor: "#1dbf73",
-        height: "100vh",
-      }}
-    >
+    <div>
       <Header />
 
       <div
