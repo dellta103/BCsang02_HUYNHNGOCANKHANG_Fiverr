@@ -78,7 +78,7 @@ export default function UserDetailPage() {
                 />
               </label>
               <br />
-
+              <p className="text-center text-lg font-bold">{userInfo?.name}</p>
               <div className="text w-10/12">
                 <div className="text-top flex justify-between">
                   <span className="font-medium">

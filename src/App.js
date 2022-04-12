@@ -9,6 +9,8 @@ import UserDetailPage from "./pages/UserDetailPage/UserDetailPage";
 import JobsPage from "./pages/JobsPage/JobsPage";
 import JobDetailPage from "./pages/JobDetailPage/JobDetailPage";
 import JobsByTypePage from "./pages/JobsByTypePage/JobsByTypePage";
+import AdminPage from "./pages/AdminPage/AdminPage";
+import AdminLayout from "./templates/AdminLayout";
 
 function App() {
   return (
@@ -25,6 +27,10 @@ function App() {
           <Route
             path="/jobs-by-type/:id"
             element={<Layout Component={JobsByTypePage} />}
+          />
+          <Route
+            path="/admin"
+            element={<AdminLayout Component={AdminPage} />}
           />
 
           <Route path="/sign-up" element={<SignUpPage />} />
