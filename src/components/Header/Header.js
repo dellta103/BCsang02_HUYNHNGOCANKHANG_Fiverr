@@ -21,7 +21,6 @@ export default function Header() {
   const { Search } = Input;
   useEffect(() => {
     userService.getDetailUser(userInfo?.user._id).then((res) => {
-      console.log(res.data);
       setDetailUser(res.data);
     });
   }, []);
@@ -29,10 +28,9 @@ export default function Header() {
     jobService
       .getJobListByName(value)
       .then((res) => {
-        console.log(res.data);
         dispatch(filterJobs(res.data));
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {});
     navigate("/jobs");
   };
   return (

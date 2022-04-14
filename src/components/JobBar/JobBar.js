@@ -13,12 +13,9 @@ export default function JobBar() {
     jobService
       .getMainJobList()
       .then((res) => {
-        console.log(res.data);
         setJobList(res.data);
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => {});
   };
   const renderJobList = (arr) => {
     return arr.map((jobs, index) => {

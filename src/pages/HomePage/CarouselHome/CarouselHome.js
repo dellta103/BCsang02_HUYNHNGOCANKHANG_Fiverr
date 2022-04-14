@@ -13,20 +13,17 @@ export default function CarouselHome() {
   const [input, setInput] = useState("");
   const { Search } = Input;
   SwiperCore.use([Autoplay, EffectFade]);
-  const onSearch = (value) => console.log(value);
   let dispatch = useDispatch();
   let navigate = useNavigate();
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(input);
     setInput("");
     jobService
       .getJobListByName(input)
       .then((res) => {
-        console.log(res.data);
         dispatch(filterJobs(res.data));
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {});
     navigate("/jobs");
   };
   return (
@@ -40,8 +37,8 @@ export default function CarouselHome() {
           spaceBetween={0}
           slidesPerView={1}
           centeredSlides
-          onSlideChange={() => console.log("slide change")}
-          onSwiper={(swiper) => console.log(swiper)}
+          onSlideChange={() => {}}
+          onSwiper={(swiper) => {}}
         >
           <SwiperSlide>
             <div className="bg1"></div>

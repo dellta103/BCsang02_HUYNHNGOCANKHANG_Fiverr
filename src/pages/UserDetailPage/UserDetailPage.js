@@ -11,12 +11,9 @@ export default function UserDetailPage() {
     jobService
       .getBookedJobs(userInfo?.token)
       .then((res) => {
-        console.log(res.data.bookingJob);
         setBookedJob(res.data.bookingJob);
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => {});
     userService
       .getDetailUser(userInfo?.user._id, userInfo?.token)
       .then((res) => {
@@ -50,10 +47,9 @@ export default function UserDetailPage() {
     userService
       .uploadAvatar(data, userInfo?.token)
       .then((res) => {
-        console.log(res.data);
         window.location.reload();
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {});
   };
 
   return (

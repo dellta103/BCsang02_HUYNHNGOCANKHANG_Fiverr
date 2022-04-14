@@ -9,22 +9,15 @@ export default function FormSignUp() {
   const onFinish = (values) => {
     handleSignUp(values);
     navigate("/sign-in");
-    // console.log(values);
   };
 
-  const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
-  };
+  const onFinishFailed = (errorInfo) => {};
 
   const handleSignUp = (values) => {
     userService
       .signUp(values)
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+      .then((res) => {})
+      .catch((err) => {});
   };
   return (
     <Form

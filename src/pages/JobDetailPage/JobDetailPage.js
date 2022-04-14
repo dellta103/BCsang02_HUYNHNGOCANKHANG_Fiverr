@@ -16,10 +16,9 @@ export default function JobDetailPage() {
     jobService
       .getJobDetail(window.location.pathname)
       .then((res) => {
-        console.log(res.data);
         setDetailJob(res.data);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {});
   }, []);
   useEffect(() => {
     jobService
@@ -27,19 +26,19 @@ export default function JobDetailPage() {
       .then((res) => {
         setComments(res.data);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {});
   }, [detailJob, comment]);
   const handleBookJob = (uri) => {
     jobService
       .bookJob(uri, userInfo?.token)
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
+      .then((res) => {})
+      .catch((err) => {});
   };
   const handleNewComment = (values) => {
     jobService
       .newComment(values, userInfo?.token)
       .then((res) => dispatch(addComment(newComment.content)))
-      .catch((err) => console.log(err));
+      .catch((err) => {});
   };
   return (
     <div className="bg-white  border-t border-gray-400 p-3">

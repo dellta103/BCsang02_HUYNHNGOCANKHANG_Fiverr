@@ -11,10 +11,9 @@ export default function ContentAdmin() {
     userService
       .findUser(value)
       .then((res) => {
-        console.log(res);
         setUsers(res.data);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {});
   };
   const [users, setUsers] = useState([]);
   const [singleUser, setSingleUser] = useState(null);
@@ -38,12 +37,9 @@ export default function ContentAdmin() {
         singleUser._id
       )
       .then((res) => {
-        console.log(res.data);
         window.location.href = "/admin";
       })
-      .catch((err) => {
-        console.log(err.response);
-      });
+      .catch((err) => {});
     setIsModalVisible1(false);
   };
 
@@ -62,17 +58,11 @@ export default function ContentAdmin() {
   const onFinish = (values) => {
     userService
       .addAdmin(values, userInfo?.token)
-      .then((res) => {
-        console.log(res.data);
-      })
-      .catch((err) => {
-        console.log(err.response.data);
-      });
+      .then((res) => {})
+      .catch((err) => {});
   };
 
-  const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
-  };
+  const onFinishFailed = (errorInfo) => {};
 
   const columns = [
     {
@@ -146,9 +136,7 @@ export default function ContentAdmin() {
                     .then((res) => {
                       window.location.href = "/admin";
                     })
-                    .catch((err) => {
-                      console.log(err.response.data);
-                    });
+                    .catch((err) => {});
                 }}
               >
                 <i className="fa fa-trash-alt"></i>
@@ -165,9 +153,7 @@ export default function ContentAdmin() {
       .then((res) => {
         setUsers(res.data);
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => {});
   }, []);
   const data = users;
   return (

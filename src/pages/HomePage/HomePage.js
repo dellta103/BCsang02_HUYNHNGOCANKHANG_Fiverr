@@ -7,11 +7,8 @@ import Carousel2Home from "./Carousel2Home/Carousel2Home";
 import ContentHome from "./ContentHome/ContentHome";
 import Footer from "../../components/Footer/Footer";
 export default function HomePage() {
-  let { userInfo } = useSelector((state) => state.userSlice);
   const [y, setY] = useState(window.scrollY);
-  useEffect(() => {
-    console.log(userInfo);
-  }, []);
+
   useEffect(() => {
     window.addEventListener("scroll", (e) => handleNavigation(e));
 

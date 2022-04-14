@@ -109,8 +109,8 @@ export default function ContentHome() {
             loop
             spaceBetween={0}
             slidesPerView={1}
-            onSlideChange={() => console.log("slide change")}
-            onSwiper={(swiper) => console.log(swiper)}
+            onSlideChange={() => {}}
+            onSwiper={(swiper) => {}}
           >
             <SwiperSlide>
               <div className="item flex">

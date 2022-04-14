@@ -15,14 +15,11 @@ export default function FormSignIn() {
     navigate("/jobs");
   };
 
-  const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
-  };
+  const onFinishFailed = (errorInfo) => {};
   const handleSignIn = (values) => {
     userService
       .signIn(values)
       .then((res) => {
-        console.log(res.data);
         dispatch(setSignIn(res.data));
         localService.setUserInfo(res.data);
         message.success(res.data.message);

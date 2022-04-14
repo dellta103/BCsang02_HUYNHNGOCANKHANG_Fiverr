@@ -16,28 +16,21 @@ export default function JobsByTypePage() {
       .then((res) => {
         setJob(res.data);
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => {});
     jobService
       .getJobsByType(id)
       .then((res) => {
-        console.log(res.data);
-
         setJobsByType(res.data.splice(0, 15));
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => {});
   }, []);
   const handleDetailJob = (values) => {
     jobService
       .getJobListByName(values)
       .then((res) => {
-        console.log(res.data);
         dispatch(filterJobs(res.data));
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {});
     navigate("/jobs");
   };
   return (

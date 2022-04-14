@@ -25,7 +25,7 @@ export default function JobsPage() {
           setJobs(res.data);
         }
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {});
   }, [filteredJobs]);
   const [jobs, setJobs] = useState([]);
   const [pagination, setpagination] = useState({

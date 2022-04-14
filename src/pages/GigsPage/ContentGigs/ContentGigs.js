@@ -11,10 +11,9 @@ export default function ContentGigs() {
     jobService
       .findGigs(value)
       .then((res) => {
-        console.log(res.data);
         setGigs(res.data);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {});
   };
   const [gigs, setGigs] = useState([]);
   const [singleGig, setSingleGig] = useState(null);
@@ -32,12 +31,8 @@ export default function ContentGigs() {
     data.append("job", file);
     jobService
       .updateGigImage(data, singleGig?._id, userInfo?.token)
-      .then((res) => {
-        console.log(res.data);
-      })
-      .catch((err) => {
-        console.log(err.response.data);
-      });
+      .then((res) => {})
+      .catch((err) => {});
   };
   const handleOk1 = () => {
     jobService
@@ -50,12 +45,8 @@ export default function ContentGigs() {
         singleGig._id,
         userInfo?.token
       )
-      .then((res) => {
-        console.log(res.data);
-      })
-      .catch((err) => {
-        console.log(err.response);
-      });
+      .then((res) => {})
+      .catch((err) => {});
     window.location.href = "/admin/gigs";
   };
 
@@ -74,15 +65,11 @@ export default function ContentGigs() {
   const onFinish = (values) => {
     jobService
       .addNewGig(values, userInfo?.token)
-      .then((res) => {
-        console.log(res.data);
-      })
-      .catch((err) => console.log(err));
+      .then((res) => {})
+      .catch((err) => {});
   };
 
-  const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
-  };
+  const onFinishFailed = (errorInfo) => {};
 
   const columns = [
     {
@@ -139,7 +126,6 @@ export default function ContentGigs() {
                 className="rounded-lg w-10"
                 onClick={() => {
                   setSingleGig(gig);
-                  console.log(gig);
                   showModal1();
                 }}
               >
@@ -153,9 +139,7 @@ export default function ContentGigs() {
                     .then((res) => {
                       window.location.href = "/admin/gigs";
                     })
-                    .catch((err) => {
-                      console.log(err.response.data);
-                    });
+                    .catch((err) => {});
                 }}
               >
                 <i className="fa fa-trash-alt"></i>
@@ -172,9 +156,7 @@ export default function ContentGigs() {
       .then((res) => {
         setGigs(res.data);
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => {});
   }, []);
   const data = gigs;
 
