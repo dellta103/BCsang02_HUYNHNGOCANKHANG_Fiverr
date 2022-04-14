@@ -11,6 +11,7 @@ import JobDetailPage from "./pages/JobDetailPage/JobDetailPage";
 import JobsByTypePage from "./pages/JobsByTypePage/JobsByTypePage";
 import AdminPage from "./pages/AdminPage/AdminPage";
 import AdminLayout from "./templates/AdminLayout";
+import GigsPage from "./pages/GigsPage/GigsPage";
 
 function App() {
   return (
@@ -31,6 +32,10 @@ function App() {
           <Route
             path="/admin"
             element={<AdminLayout Component={AdminPage} />}
+          />
+          <Route
+            path="/admin/gigs"
+            element={<AdminLayout Component={GigsPage} />}
           />
 
           <Route path="/sign-up" element={<SignUpPage />} />

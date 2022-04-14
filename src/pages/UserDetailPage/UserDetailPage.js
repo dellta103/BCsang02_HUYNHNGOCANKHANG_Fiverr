@@ -5,54 +5,57 @@ import { userService } from "../../services/userService";
 import { jobService } from "../../services/jobService";
 import "./UserDetailPage.scss";
 import { useNavigate } from "react-router-dom";
+import { localService } from "../../services/localService";
 export default function UserDetailPage() {
   useEffect(() => {
     jobService
-      .getBookedJobs()
+      .getBookedJobs(userInfo?.token)
       .then((res) => {
-        setBookedJob(res.data.bookingJob);
         console.log(res.data.bookingJob);
+        setBookedJob(res.data.bookingJob);
       })
       .catch((err) => {
         console.log(err);
       });
+    userService
+      .getDetailUser(userInfo?.user._id, userInfo?.token)
+      .then((res) => {
+        setDetailUser(res.data);
+      });
   }, []);
   let { userInfo } = useSelector((state) => state.userSlice);
-  let dispatch = useDispatch();
   let navigate = useNavigate();
   const [bookedJob, setBookedJob] = useState([]);
   const [img, setImg] = useState(null);
   const [show, setShow] = useState(false);
   const [skill, setSkill] = useState([]);
+  const [detailUser, setDetailUser] = useState(null);
   const changeHandler = (e) => {
     let file = e.target.files[0];
-    if (
-      file.type === "image/jpeg" ||
-      file.type === "image/png" ||
-      file.type === "image/gif" ||
-      file.type === "image/jpg"
-    ) {
-      let reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = (e) => {
-        setImg(e.target.result);
-      };
-    }
+    // if (
+    //   file.type === "image/jpeg" ||
+    //   file.type === "image/png" ||
+    //   file.type === "image/gif" ||
+    //   file.type === "image/jpg"
+    // ) {
+    //   let reader = new FileReader();
+    //   reader.readAsDataURL(file);
+    //   reader.onload = (e) => {
+    //     setImg(e.target.result);
+    //   };
+    // }
     let data = new FormData();
     data.append("avatar", file);
+
     userService
-      .uploadAvatar(data)
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
-  };
-  const handleSkills = (values, id) => {
-    userService
-      .editInfo(values, id)
+      .uploadAvatar(data, userInfo?.token)
       .then((res) => {
-        console.log(res);
+        console.log(res.data);
+        window.location.reload();
       })
       .catch((err) => console.log(err));
   };
+
   return (
     <div className="bg-gray-300 p-3">
       <div className="lg:w-9/12 m-auto flex md:w-11/12">
@@ -60,11 +63,11 @@ export default function UserDetailPage() {
           <div className="top rounded-lg shadow-lg py-4">
             <div className="user">
               <label className="avatar m-auto" id="avatar">
-                {userInfo?.avatar ? (
-                  <img src={userInfo.avatar} alt="" />
+                {userInfo?.user.avatar ? (
+                  <img src={userInfo?.user.avatar} alt="" />
                 ) : (
-                  <span className="text-3xl font-semibold text-white">
-                    {userInfo?.email[0].toUpperCase()}
+                  <span className="text-3xl font-semibold text-white ">
+                    {userInfo?.user.email[0].toUpperCase()}
                   </span>
                 )}
 
@@ -78,7 +81,10 @@ export default function UserDetailPage() {
                 />
               </label>
               <br />
-              <p className="text-center text-lg font-bold">{userInfo?.name}</p>
+              <p className="text-center text-lg font-bold">
+                {userInfo?.user.name}
+              </p>
+
               <div className="text w-10/12">
                 <div className="text-top flex justify-between">
                   <span className="font-medium">

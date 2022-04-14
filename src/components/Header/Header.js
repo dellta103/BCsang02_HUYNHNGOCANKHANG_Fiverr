@@ -3,22 +3,28 @@ import "./Header.scss";
 import logo from "../../logos/fiverr-logo.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { Input, Space } from "antd";
-import { filterJobs, setSearch } from "../redux/slices/jobSlice";
+import { Input } from "antd";
+import { filterJobs } from "../redux/slices/jobSlice";
 import "antd/dist/antd.css";
 import { jobService } from "../../services/jobService";
 import { localService } from "../../services/localService";
+import { userService } from "../../services/userService";
 
 export default function Header() {
   const [jobs, setJobs] = useState([]);
+  const [detailUser, setDetailUser] = useState(null);
 
   let navigate = useNavigate();
   let dispatch = useDispatch();
   let { userInfo } = useSelector((state) => state.userSlice);
-  let { searchValue } = useSelector((state) => state.jobSlice);
-  let { filteredJobs } = useSelector((state) => state.jobSlice);
-  const { Search } = Input;
 
+  const { Search } = Input;
+  useEffect(() => {
+    userService.getDetailUser(userInfo?.user._id).then((res) => {
+      console.log(res.data);
+      setDetailUser(res.data);
+    });
+  }, []);
   const onSearch = (value) => {
     jobService
       .getJobListByName(value)
@@ -44,11 +50,19 @@ export default function Header() {
           />
         </div>
         <ul className="flex items-center h-full space-x-5">
+          <li
+            className={
+              "font-medium text-black " +
+              (userInfo?.user.role !== "ADMIN" ? "hidden" : "block")
+            }
+          >
+            <a href="/admin">Manage</a>
+          </li>
           <li className="font-medium text-black">
             <a href="#">Become a Seller</a>
           </li>
           <li>
-            {userInfo?._id ? (
+            {userInfo?.user._id ? (
               <div className="flex space-x-3">
                 <div
                   className="user"
@@ -57,7 +71,7 @@ export default function Header() {
                   }}
                 >
                   <img
-                    src={userInfo?.avatar}
+                    src={userInfo?.user.avatar}
                     alt=""
                     style={{
                       width: "100%",

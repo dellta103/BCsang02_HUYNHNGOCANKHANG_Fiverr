@@ -1,20 +1,24 @@
 import React, { useEffect, useState } from "react";
 import { jobService } from "../../services/jobService";
 import "./JobDetailPage.scss";
-import { Navigate, useNavigate, useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { addComment } from "../../components/redux/slices/jobSlice";
 export default function JobDetailPage() {
   let { id } = useParams();
+  let dispatch = useDispatch();
   let { userInfo } = useSelector((state) => state.userSlice);
-  let navigate = useNavigate();
+  let { comment } = useSelector((state) => state.jobSlice);
   const [detailJob, setDetailJob] = useState();
   const [comments, setComments] = useState();
   const [newComment, setNewComment] = useState({});
   useEffect(() => {
-    console.log(id);
     jobService
       .getJobDetail(window.location.pathname)
-      .then((res) => setDetailJob(res.data))
+      .then((res) => {
+        console.log(res.data);
+        setDetailJob(res.data);
+      })
       .catch((err) => console.log(err));
   }, []);
   useEffect(() => {
@@ -24,17 +28,17 @@ export default function JobDetailPage() {
         setComments(res.data);
       })
       .catch((err) => console.log(err));
-  }, [detailJob]);
+  }, [detailJob, comment]);
   const handleBookJob = (uri) => {
     jobService
-      .bookJob(uri)
+      .bookJob(uri, userInfo?.token)
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
   };
   const handleNewComment = (values) => {
     jobService
-      .newComment(values)
-      .then((res) => console.log(res))
+      .newComment(values, userInfo?.token)
+      .then((res) => dispatch(addComment(newComment.content)))
       .catch((err) => console.log(err));
   };
   return (
@@ -219,7 +223,7 @@ export default function JobDetailPage() {
                   setNewComment({
                     ...newComment,
                     user: {
-                      name: userInfo?.name,
+                      name: userInfo?.user.name,
                     },
                     content: e.target.value,
                     job: id,
@@ -232,6 +236,7 @@ export default function JobDetailPage() {
                 onClick={(e) => {
                   handleNewComment(newComment);
                   document.querySelector("#comment").value = "";
+                  setNewComment("");
                 }}
               >
                 Comment

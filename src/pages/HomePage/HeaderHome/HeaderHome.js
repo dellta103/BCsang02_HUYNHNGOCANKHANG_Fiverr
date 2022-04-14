@@ -38,7 +38,7 @@ export default function Header({ scroll }) {
               Become a Seller
             </a>
           </li>
-          {userInfo?._id ? (
+          {userInfo?.user._id ? (
             <li className="flex space-x-3">
               <div
                 className="user"
@@ -47,7 +47,7 @@ export default function Header({ scroll }) {
                 }}
               >
                 <img
-                  src={userInfo?.avatar}
+                  src={userInfo?.user.avatar}
                   alt=""
                   style={{
                     width: "100%",

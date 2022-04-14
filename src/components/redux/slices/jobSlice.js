@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 let initialState = {
   searchValue: "",
   filteredJobs: null,
+  comment: "",
 };
 
 const jobSlice = createSlice({
@@ -15,11 +16,14 @@ const jobSlice = createSlice({
     filterJobs: (state, action) => {
       state.filteredJobs = action.payload;
     },
+    addComment: (state, action) => {
+      state.comment = action.payload;
+    },
   },
 });
 
 const { actions, reducer } = jobSlice;
 
-export const { setSearch, filterJobs } = actions;
+export const { setSearch, filterJobs, addComment } = actions;
 
 export default reducer;

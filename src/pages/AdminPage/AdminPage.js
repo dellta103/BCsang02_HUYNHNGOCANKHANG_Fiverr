@@ -6,7 +6,7 @@ export default function AdminPage() {
   let { userInfo } = useSelector((state) => state.userSlice);
   let navigate = useNavigate();
   useEffect(() => {
-    if (userInfo?.role !== "ADMIN") {
+    if (userInfo?.user.role !== "ADMIN") {
       navigate("/");
     }
   }, []);

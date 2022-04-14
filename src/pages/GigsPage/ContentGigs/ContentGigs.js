@@ -3,48 +3,60 @@ import { Table, Tag, Space, Input, Modal, Form, Button, Radio } from "antd";
 import "antd/dist/antd.css";
 import { userService } from "../../../services/userService";
 import { useSelector } from "react-redux";
-export default function ContentAdmin() {
-  const [filteredUsers, setFilteredUsers] = useState([]);
+import { jobService } from "../../../services/jobService";
+export default function ContentGigs() {
   let { userInfo } = useSelector((state) => state.userSlice);
   const { Search } = Input;
   const onSearch = (value) => {
-    userService
-      .findUser(value)
+    jobService
+      .findGigs(value)
       .then((res) => {
-        console.log(res);
-        setUsers(res.data);
+        console.log(res.data);
+        setGigs(res.data);
       })
       .catch((err) => console.log(err));
   };
-  const [users, setUsers] = useState([]);
-  const [singleUser, setSingleUser] = useState(null);
+  const [gigs, setGigs] = useState([]);
+  const [singleGig, setSingleGig] = useState(null);
   const [isModalVisible1, setIsModalVisible1] = useState(false);
   const [isModalVisible2, setIsModalVisible2] = useState(false);
   const [newName, setNewName] = useState("");
-  const [newEmail, setNewEmail] = useState("");
-  const [newPhone, setNewPhone] = useState("");
+  const [newPrice, setNewPrice] = useState("");
+  const [newRating, setNewRating] = useState("");
   const showModal1 = () => {
     setIsModalVisible1(true);
   };
-
+  const changeHandle = (e) => {
+    let file = e.target.files[0];
+    let data = new FormData();
+    data.append("job", file);
+    jobService
+      .updateGigImage(data, singleGig?._id, userInfo?.token)
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err.response.data);
+      });
+  };
   const handleOk1 = () => {
-    userService
-      .editInfo(
+    jobService
+      .editGigs(
         {
-          name: newName || singleUser?.name,
-          email: newEmail || singleUser?.email,
-          phone: newPhone || singleUser?.phone,
+          name: newName || singleGig?.name,
+          price: newPrice || singleGig?.price,
+          rating: newRating || singleGig?.rating,
         },
-        singleUser._id
+        singleGig._id,
+        userInfo?.token
       )
       .then((res) => {
         console.log(res.data);
-        window.location.href = "/admin";
       })
       .catch((err) => {
         console.log(err.response);
       });
-    setIsModalVisible1(false);
+    window.location.href = "/admin/gigs";
   };
 
   const handleCancel1 = () => {
@@ -60,14 +72,12 @@ export default function ContentAdmin() {
     setIsModalVisible2(false);
   };
   const onFinish = (values) => {
-    userService
-      .addAdmin(values, userInfo?.token)
+    jobService
+      .addNewGig(values, userInfo?.token)
       .then((res) => {
         console.log(res.data);
       })
-      .catch((err) => {
-        console.log(err.response.data);
-      });
+      .catch((err) => console.log(err));
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -81,14 +91,14 @@ export default function ContentAdmin() {
       key: "name",
     },
     {
-      title: "Avatar",
-      dataIndex: "avatar",
-      key: "avatar",
-      render: (avatar) => {
+      title: "Image",
+      dataIndex: "image",
+      key: "image",
+      render: (image) => {
         return (
           <Fragment>
             <img
-              src={avatar}
+              src={image}
               alt=""
               style={{
                 height: "30px",
@@ -100,39 +110,36 @@ export default function ContentAdmin() {
       },
     },
     {
-      title: "Email",
-      dataIndex: "email",
-      key: "email",
+      title: "Price",
+      dataIndex: "price",
+      key: "price",
     },
     {
-      title: "Role",
-      dataIndex: "role",
-      key: "role",
-      render: (role) => {
-        if (role === "ADMIN") {
-          return <Tag color={"green"}>Admin</Tag>;
+      title: "Rating",
+      dataIndex: "rating",
+      key: "rating",
+      render: (rating) => {
+        if (rating === 1000) {
+          return <Tag color={"green"}>{rating}</Tag>;
         } else {
-          return <Tag color={"purple"}>Client</Tag>;
+          return <Tag color={"purple"}>{rating}</Tag>;
         }
       },
     },
-    {
-      title: "Phone",
-      key: "phone",
-      dataIndex: "phone",
-    },
+
     {
       title: "Action",
       key: "action",
       dataIndex: "action",
-      render: (text, user) => {
+      render: (text, gig) => {
         return (
           <Fragment>
             <div className="space-x-3">
               <button
                 className="rounded-lg w-10"
                 onClick={() => {
-                  setSingleUser(user);
+                  setSingleGig(gig);
+                  console.log(gig);
                   showModal1();
                 }}
               >
@@ -141,10 +148,10 @@ export default function ContentAdmin() {
               <button
                 className="bg-red-600 rounded-lg w-10"
                 onClick={() => {
-                  userService
-                    .removeUser(user._id)
+                  jobService
+                    .deleteGigs(gig._id, userInfo?.token)
                     .then((res) => {
-                      window.location.href = "/admin";
+                      window.location.href = "/admin/gigs";
                     })
                     .catch((err) => {
                       console.log(err.response.data);
@@ -160,16 +167,17 @@ export default function ContentAdmin() {
     },
   ];
   useEffect(() => {
-    userService
-      .getUsers()
+    jobService
+      .getGigs()
       .then((res) => {
-        setUsers(res.data);
+        setGigs(res.data);
       })
       .catch((err) => {
         console.log(err);
       });
   }, []);
-  const data = users;
+  const data = gigs;
+
   return (
     <div className="p-3 space-y-5">
       <button
@@ -178,10 +186,10 @@ export default function ContentAdmin() {
           showModal2();
         }}
       >
-        <i className="fa fa-plus"></i> Add new Admin
+        <i className="fa fa-plus"></i> Add new Gig
       </button>
       <Modal
-        title="New Admin"
+        title="New Gig"
         visible={isModalVisible2}
         onOk={handleOk2}
         onCancel={handleCancel2}
@@ -214,41 +222,31 @@ export default function ContentAdmin() {
             <Input />
           </Form.Item>
           <Form.Item
-            label="Email"
-            name="email"
+            label="Price"
+            name="price"
             rules={[
               {
                 required: true,
-                message: "Please input Email!",
+                message: "Please input Price!",
               },
             ]}
           >
             <Input />
           </Form.Item>
+
           <Form.Item
-            label="Password"
-            name="password"
+            label="Rating"
+            name="rating"
             rules={[
               {
                 required: true,
-                message: "Please input Password!",
-              },
-            ]}
-          >
-            <Input.Password />
-          </Form.Item>
-          <Form.Item
-            label="Phone Number"
-            name="phone"
-            rules={[
-              {
-                required: true,
-                message: "Please input Phone Number!",
+                message: "Please input Rating!",
               },
             ]}
           >
             <Input />
           </Form.Item>
+
           <Form.Item
             wrapperCol={{
               offset: 18,
@@ -273,30 +271,38 @@ export default function ContentAdmin() {
       />
       <Table columns={columns} dataSource={data} className="font-bold" />
       <Modal
-        title={singleUser?.name}
+        title={singleGig?.name}
         visible={isModalVisible1}
         onOk={handleOk1}
         onCancel={handleCancel1}
       >
         <p>Name:</p>
         <Input
-          value={newName || singleUser?.name}
+          value={newName || singleGig?.name}
           onChange={(e) => {
             setNewName(e.target.value);
           }}
         />
-        <p>Email:</p>
+        <p>Price:</p>
         <Input
-          value={newEmail || singleUser?.email}
+          value={newPrice || singleGig?.price}
           onChange={(e) => {
-            setNewEmail(e.target.value);
+            setNewPrice(e.target.value);
           }}
         />
-        <p>Phone:</p>
+        <p>Rating:</p>
         <Input
-          value={newPhone || singleUser?.phone}
+          value={newRating || singleGig?.rating}
           onChange={(e) => {
-            setNewPhone(e.target.value);
+            setNewRating(e.target.value);
+          }}
+        />
+        <Input
+          type={"file"}
+          name="job"
+          className="mt-3"
+          onChange={(e) => {
+            changeHandle(e);
           }}
         />
       </Modal>

@@ -46,8 +46,8 @@ export default function JobsPage() {
   };
   return (
     <div className="bg-white  border-t border-gray-400">
-      <div className="w-9/12 m-auto p-5">
-        <div className="grid grid-cols-4">
+      <div className="w-9/12 m-auto lg:p-5">
+        <div className="grid lg:grid-cols-4 md:grid-cols-2 xs:grid-cols-1 gap-3">
           {jobs.map((item, index) => {
             return (
               index >= pagination.minIndex &&
