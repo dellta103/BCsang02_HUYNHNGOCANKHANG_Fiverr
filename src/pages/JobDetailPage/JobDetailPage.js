@@ -13,6 +13,9 @@ export default function JobDetailPage() {
   const [comments, setComments] = useState();
   const [newComment, setNewComment] = useState({});
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+  useEffect(() => {
     jobService
       .getJobDetail(window.location.pathname)
       .then((res) => {

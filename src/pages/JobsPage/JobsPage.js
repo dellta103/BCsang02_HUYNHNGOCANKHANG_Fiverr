@@ -16,6 +16,9 @@ export default function JobsPage() {
   let { filteredJobs } = useSelector((state) => state.jobSlice);
   const { Meta } = Card;
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+  useEffect(() => {
     jobService
       .getJobList()
       .then((res) => {

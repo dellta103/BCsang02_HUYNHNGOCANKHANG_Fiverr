@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Header from "../components/Header/Header";
 import JobBar from "../components/JobBar/JobBar";
 import Footer from "../components/Footer/Footer";

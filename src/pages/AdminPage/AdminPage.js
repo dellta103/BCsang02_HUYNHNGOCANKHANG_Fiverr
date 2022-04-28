@@ -10,6 +10,9 @@ export default function AdminPage() {
       navigate("/");
     }
   }, []);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   return (
     <div>
       <ContentAdmin />

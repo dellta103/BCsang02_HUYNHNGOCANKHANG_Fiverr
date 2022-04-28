@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ContentAdmin from "../pages/AdminPage/ContentAdmin/ContentAdmin";
 import HeaderAdmin from "../pages/AdminPage/HeaderAdmin/HeaderAdmin";
 import SidebarAdmin from "../pages/AdminPage/SidebarAdmin/SidebarAdmin";

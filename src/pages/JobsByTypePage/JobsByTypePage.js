@@ -11,6 +11,9 @@ export default function JobsByTypePage() {
   const [job, setJob] = useState();
   const [jobsByType, setJobsByType] = useState([]);
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+  useEffect(() => {
     jobService
       .getJobDetail(`/type-jobs/${id}`)
       .then((res) => {

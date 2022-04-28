@@ -8,6 +8,9 @@ import { useNavigate } from "react-router-dom";
 import { localService } from "../../services/localService";
 export default function UserDetailPage() {
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+  useEffect(() => {
     jobService
       .getBookedJobs(userInfo?.token)
       .then((res) => {

@@ -17,7 +17,9 @@ export default function HomePage() {
       window.removeEventListener("scroll", (e) => handleNavigation(e));
     };
   }, [y]);
-
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const handleNavigation = (e) => {
     const window = e.currentTarget;
     setY(window.scrollY);
